@@ -4,6 +4,8 @@
   using namespace rpg_system;
 #include "core/video.hpp"
   using namespace rpg_video;
+#include "core/modes.hpp"
+  using namespace rpg_modes;
 
 bool InitializeSingletons();
 void DeconstructSingletons();
@@ -36,6 +38,8 @@ int main()
 
     VideoManager->Clear();
 
+    ModeManager->Draw();
+
     VideoManager->Display();
   }
 
@@ -56,6 +60,7 @@ bool InitializeSingletons()
 
   SystemManager = SystemEngine::CreateSingleton();
   VideoManager = VideoEngine::CreateSingleton();
+  ModeManager = ModeEngine::CreateSingleton();
 
   if (!SystemManager->InitSingleton())
   {
@@ -70,6 +75,12 @@ bool InitializeSingletons()
   }
   VideoManager->CreateWindow(1024, 720, "Title Here");
 
+  if (!ModeManager->InitSingleton())
+  {
+    Log->Error("Failed to initialize ModeEngine", LOCATION);
+    return false;
+  }
+
   Log->Debug("All singletons initialized", LOCATION);
   return true;
 }
@@ -79,6 +90,7 @@ void DeconstructSingletons()
 {
   Log->Debug("Deconstructing singletons", LOCATION);
 
+  ModeEngine::DestroySingleton();
   VideoEngine::DestroySingleton();
   SystemEngine::DestroySingleton();
   Logger::DestroySingleton();
