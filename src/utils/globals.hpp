@@ -15,6 +15,7 @@
  * functionalities that are necessary across most of
  * the program. This includes things like:
  *  - Singletons
+ *  - Logger
  *  - Sol2 (Lua)
  *  - TermColor
  *  - Global Definitions
@@ -58,6 +59,7 @@
   using std::string;
   using std::to_string;
 #include <cmath>
+#include <ctime>
 
 // SFML Libraries
 #include <SFML/System.hpp>
@@ -67,15 +69,13 @@
 
 // Additional External Libraries
 #include "termcolor.hpp"
+#include "logger.hpp"
 
 // Custom Libraries
 // #include "../core/resources.hpp"
 
 // Environment Variables
 #define DEBUG_MODE true
-
-// Absolute path to the project folder
-const string HOME_PATH = "~/Documents/dev/cpp/proj/final-fantasy-clone";
 
 // Helper functions designed to help in debugging
 // and displaying error messages.

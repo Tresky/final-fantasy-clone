@@ -1,55 +1,43 @@
 #include "utils/globals.hpp"
 
-#include "core/system.hpp"
-
-using namespace rpg_system;
+using namespace rpg_utils;
 
 bool InitializeSingletons();
 void DeconstructSingletons();
 
+// Main function
 int main()
 {
-  PRINT_DEBUG << "Starting engine" << endl;
   atexit(DeconstructSingletons);
 
   if (!InitializeSingletons())
   {
-    PRINT_ERROR << "Failed to initialize singletons" << endl;
     DeconstructSingletons();
     exit(100);
   }
-
-  PRINT_DEBUG << "Starting loop" << endl;
-  while (!SystemManager->IsExiting())
-  {
-    // Capture Events and input
-
-    // Video clear
-    // Mode Draw
-    // Video draw fade effects
-
-    // updates
-  }
-
-  //close
+  Log->Debug("Starting engine", LOCATION);
 
   return 0;
 }
 
+// Initializes all of the singletons used across the game
 bool InitializeSingletons()
 {
-  SystemManager = SystemEngine::CreateSingleton();
+  Log = Logger::CreateSingleton();
 
-  if (!SystemManager->InitSingleton())
+  if (!Log->InitSingleton())
   {
-    PRINT_ERROR << "Failed to initialize SystemEngine singleton" << endl;
+    cout << "Failed to Initialize Logger" << endl;
     return false;
   }
 
+
+  Log->Debug("All singletons initialized", LOCATION);
   return true;
 }
 
+// Clean up all of the singletons. Each one manages its own resources.
 void DeconstructSingletons()
 {
-  SystemEngine::DestroySingleton();
+  Log->Debug("Deconstructing singletons", LOCATION);
 }
