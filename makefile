@@ -12,24 +12,39 @@ INCS = -I/usr/local/include
 
 
 #### OBJECT FILES ####
+# Utilities Objects
 _UTIL_OBJ = logger.o
 UTIL_OBJ = $(patsubst %, $(ODIR)/%, $(_UTIL_OBJ))
+
+# Engine Objects
+_ENG_OBJ = system.o
+ENG_OBJ = $(patsubst %, $(ODIR)/%, $(_ENG_OBJ))
 
 
 
 #### DEPENDENCY HEADER FILES ####
+# Utilities Headers
 _UTIL_DEP = logger.hpp
 UTIL_DEP = $(patsubst %, ./src/utils/%, $(_UTIL_DEP))
+
+# Engine Headers
+_ENG_DEP = system.hpp
+ENG_DEP = $(patsubst %, ./src/core/%, $(_ENG_DEP))
+
 
 
 
 #### RULES ####
 # Links object files and libraries into executable
-rpg: $(UTIL_OBJ) obj/main.o
+rpg: $(UTIL_OBJ) $(ENG_OBJ) obj/main.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS) $(INCS)
 
 # Compiles utility code from /src/utils/*
 $(ODIR)/%.o: ./src/utils/%.cpp $(UTIL_DEP)
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+# Compiles engine from /src/core/*
+$(ODIR)/%.o: ./src/core/%.cpp $(ENG_DEP)
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 # Compiles the main.cpp file and places the object

@@ -56,7 +56,7 @@ enum TimerStates
  * nature in the sense that they are very general purpose.
  *
  * \author Tyler Petresky <hello@tylerpetresky.com>
- * \date 06-14-16
+ * \date 12-15-16
  */
 class SystemTimer
 {

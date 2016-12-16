@@ -22,7 +22,7 @@ SystemTimer::SystemTimer()
   , times_completed(0)
   // , mode_owner(nullptr)
 {
-  IF_PRINT_DEBUG(SYSTEM_DEBUG) << "SystemTimer constructor called" << endl;
+  Log->Debug("SystemTimer default constructor called", LOCATION, SYSTEM_DEBUG);
 }
 
 SystemTimer::SystemTimer(const unsigned int _duration, const unsigned int _loops)
@@ -33,12 +33,12 @@ SystemTimer::SystemTimer(const unsigned int _duration, const unsigned int _loops
   , times_completed(0)
   // , mode_owner(nullptr)
 {
-  IF_PRINT_DEBUG(SYSTEM_DEBUG) << "SystemTimer constructor called" << endl;
+  Log->Debug("SystemTimer constructor called", LOCATION, SYSTEM_DEBUG);
 }
 
 SystemTimer::~SystemTimer()
 {
-  IF_PRINT_DEBUG(SYSTEM_DEBUG) << "SystemTimer destructor called" << endl;
+  Log->Debug("SystemTimer destructor called", LOCATION, SYSTEM_DEBUG);
 }
 
 void SystemTimer::InitTimer(const unsigned int _duration, const unsigned int _loops)
@@ -50,7 +50,7 @@ void SystemTimer::InitTimer(const unsigned int _duration, const unsigned int _lo
   times_completed = 0;
   // mode_owner = nullptr;
 
-  IF_PRINT_DEBUG(SYSTEM_DEBUG) << "SystemTimer initialized" << endl;
+  Log->Debug("SystemTimer initialized", LOCATION, SYSTEM_DEBUG);
 }
 
 void SystemTimer::Update()
@@ -70,7 +70,7 @@ void SystemTimer::SetDuration(const unsigned int _duration)
 {
   if (!IsInitial())
   {
-    IF_PRINT_WARNING(SYSTEM_DEBUG) << "Duration tried to set when timer not in initial state" << endl;
+    Log->Warning("Duration tried to set when timer not in initial state", LOCATION, SYSTEM_DEBUG);
     return;
   }
 
@@ -89,7 +89,7 @@ void SystemTimer::SetNumberOfLoops(const unsigned int _loops)
 {
   if (!IsInitial())
   {
-    IF_PRINT_WARNING(SYSTEM_DEBUG) << "Loops tried to set when timer not in initial state" << endl;
+    Log->Warning("Loops tried to set when timer not in initial state", LOCATION, SYSTEM_DEBUG);
     return;
   }
 
@@ -140,18 +140,19 @@ SystemEngine::SystemEngine()
   , milliseconds_played(0)
   , is_exiting(false)
 {
-  IF_PRINT_DEBUG(SYSTEM_DEBUG) << "SystemEngine constructor called" << endl;
+  Log->Debug("SystemEngine constructor called", LOCATION, SYSTEM_DEBUG);
 
   InitGameTimers();
 }
 
 SystemEngine::~SystemEngine()
 {
-  IF_PRINT_DEBUG(SYSTEM_DEBUG) << "SystemEngine destructor called" << endl;
+  Log->Debug("SystemEngine destructor called", LOCATION, SYSTEM_DEBUG);
 }
 
 bool SystemEngine::InitSingleton()
 {
+  Log->Debug("Initializing SystemEngine", LOCATION, SYSTEM_DEBUG);
   return true;
 }
 

@@ -1,6 +1,7 @@
 #include "utils/globals.hpp"
-
-using namespace rpg_utils;
+  using namespace rpg_utils;
+#include "core/system.hpp"
+  using namespace rpg_system;
 
 bool InitializeSingletons();
 void DeconstructSingletons();
@@ -42,11 +43,19 @@ int main()
 // Initializes all of the singletons used across the game
 bool InitializeSingletons()
 {
+  // Need to create and initialize the logger before anything else
+  // so we can use it in the other constructors and initializers.
   Log = Logger::CreateSingleton();
-
   if (!Log->InitSingleton())
   {
-    cout << "Failed to Initialize Logger" << endl;
+    cout << "Failed to initialize Logger" << endl;
+    return false;
+  }
+
+  SystemManager = SystemEngine::CreateSingleton();
+  if (!SystemManager->InitSingleton())
+  {
+    Log->Error("Failed to initialize SystemEngine", LOCATION);
     return false;
   }
 
@@ -58,4 +67,7 @@ bool InitializeSingletons()
 void DeconstructSingletons()
 {
   Log->Debug("Deconstructing singletons", LOCATION);
+
+  SystemEngine::DestroySingleton();
+  Logger::DestroySingleton();
 }
