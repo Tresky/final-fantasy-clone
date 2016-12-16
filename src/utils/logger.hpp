@@ -103,12 +103,12 @@ private:
    */
   Logger() {}
 
-  // Whether or not logs should be printed to a log file
+  //! Whether or not logs should be printed to a log file
   bool print_file;
-  // Whether or not logs should be printed to the console window
+  //! Whether or not logs should be printed to the console window
   bool print_console;
 
-  // If logs go to a file, this stores the file stream
+  //! If logs go to a file, this stores the file stream
   ofstream log_file;
 };
 

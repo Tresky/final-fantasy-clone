@@ -12,10 +12,29 @@ int main()
 
   if (!InitializeSingletons())
   {
+    if (Log)
+      Log->Error("Failed to initialize singletons", LOCATION);
+
     DeconstructSingletons();
     exit(100);
   }
   Log->Debug("Starting engine", LOCATION);
+
+  sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Testing");
+
+  while (window->isOpen())
+  {
+    sf::Event evt;
+    while (window->pollEvent(evt))
+    {
+      if (evt.type == sf::Event::Closed)
+        window->close();
+    }
+
+    window->clear();
+
+    window->display();
+  }
 
   return 0;
 }
@@ -30,7 +49,6 @@ bool InitializeSingletons()
     cout << "Failed to Initialize Logger" << endl;
     return false;
   }
-
 
   Log->Debug("All singletons initialized", LOCATION);
   return true;
