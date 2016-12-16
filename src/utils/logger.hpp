@@ -13,6 +13,8 @@
 #define S2(x) S1(x)
 #define LOCATION __FILE__ " @ " S2(__LINE__)
 
+#define FORCE_LOG true
+
 #include "env.hpp"
 #include "termcolor.hpp"
 #include "singleton.hpp"

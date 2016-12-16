@@ -1,3 +1,16 @@
+/**
+ * \file map_mode.hpp
+ *
+ * This file contains a class representing a child class
+ * of the GameMode class (found in core/modes.hpp). This
+ * class is used to represent the state of the game when
+ * then player is exploring a local map (dungeons, towns,
+ * castles, etc).
+ *
+ * \author Tyler Petresky <hello@tylerpetresky.com>
+ * \date 12-16-16
+ */
+
 #ifndef MAP_MODE_HPP
 #define MAP_MODE_HPP
 
@@ -17,17 +30,35 @@ public:
    */
   ~MapMode();
 
+  /**
+   * Returns the current instance of the MapMode object.
+   * \note This function is static
+   *
+   * \return Pointer to the current instance
+   */
   static MapMode* CurrentInstance()
   {
     return current_instance;
   }
 
+  /**
+   * Updates the current MapMode instance.
+   */
   void Update();
 
+  /**
+   * Draws the current MapMode instance.
+   */
   void Draw();
 
+  /**
+   * Reset the current MapMode instance.
+   */
   void Reset();
 
+  /**
+   * Deactivate the current MapMode instance.
+   */
   void Deactivate();
 
 private:

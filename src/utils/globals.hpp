@@ -72,18 +72,8 @@
 #include "logger.hpp"
   using rpg_utils::Log;
 
-// Custom Libraries
-// #include "../core/resources.hpp"
-
 // Environment Variables
 #define DEBUG_MODE true
 
-// Helper functions designed to help in debugging
-// and displaying error messages.
-#define PRINT_DEBUG cout << termcolor::green << "DEBUG :: " << __FILE__ << " :: " << __LINE__ << termcolor::reset << " -- "
-#define PRINT_WARNING cout << termcolor::yellow << "WARNING :: " << __FILE__ << " :: " << __LINE__ << termcolor::reset << " -- "
-#define PRINT_ERROR cout << termcolor::red << "ERROR :: " << __FILE__ << " :: " << __LINE__ << termcolor::reset << " -- "
-
-// Same as above, but with a conditional for evaluation.
-#define IF_PRINT_DEBUG(var) if (var) cout << termcolor::green << "DEBUG :: " << __FILE__ << " :: " << __LINE__ << termcolor::reset << " -- "
-#define IF_PRINT_WARNING(var) if (var) cout << termcolor::yellow << "WARNING :: " << __FILE__ << " :: " << __LINE__ << termcolor::reset << " -- "
+// Absolute path to the project folder
+const string HOME_PATH = "~/Documents/dev/cpp/proj/final-fantasy-clone";
