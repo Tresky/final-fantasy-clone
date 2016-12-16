@@ -40,7 +40,13 @@ int main()
 
     ModeManager->Draw();
 
+    if (VideoManager->IsDebug())
+      VideoManager->DrawDebugInfo();
     VideoManager->Display();
+
+    SystemManager->UpdateTimers();
+    ModeManager->Update();
+    VideoManager->Update();
   }
 
   return 0;
