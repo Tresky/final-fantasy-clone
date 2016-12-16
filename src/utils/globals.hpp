@@ -70,6 +70,7 @@
 // Additional External Libraries
 #include "termcolor.hpp"
 #include "logger.hpp"
+  using rpg_utils::Log;
 
 // Custom Libraries
 // #include "../core/resources.hpp"

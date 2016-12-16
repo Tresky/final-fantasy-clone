@@ -17,7 +17,7 @@ _UTIL_OBJ = logger.o
 UTIL_OBJ = $(patsubst %, $(ODIR)/%, $(_UTIL_OBJ))
 
 # Engine Objects
-_ENG_OBJ = system.o
+_ENG_OBJ = system.o video.o
 ENG_OBJ = $(patsubst %, $(ODIR)/%, $(_ENG_OBJ))
 
 
@@ -28,7 +28,7 @@ _UTIL_DEP = logger.hpp
 UTIL_DEP = $(patsubst %, ./src/utils/%, $(_UTIL_DEP))
 
 # Engine Headers
-_ENG_DEP = system.hpp
+_ENG_DEP = system.hpp video.hpp
 ENG_DEP = $(patsubst %, ./src/core/%, $(_ENG_DEP))
 
 

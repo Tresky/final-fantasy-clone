@@ -2,6 +2,8 @@
   using namespace rpg_utils;
 #include "core/system.hpp"
   using namespace rpg_system;
+#include "core/video.hpp"
+  using namespace rpg_video;
 
 bool InitializeSingletons();
 void DeconstructSingletons();
@@ -21,20 +23,20 @@ int main()
   }
   Log->Debug("Starting engine", LOCATION);
 
-  sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Testing");
+  sf::RenderWindow *window = VideoManager->GetWindowHandle();
 
-  while (window->isOpen())
+  while (!SystemManager->IsExiting())
   {
     sf::Event evt;
     while (window->pollEvent(evt))
     {
       if (evt.type == sf::Event::Closed)
-        window->close();
+        SystemManager->ExitGame();
     }
 
-    window->clear();
+    VideoManager->Clear();
 
-    window->display();
+    VideoManager->Display();
   }
 
   return 0;
@@ -53,11 +55,20 @@ bool InitializeSingletons()
   }
 
   SystemManager = SystemEngine::CreateSingleton();
+  VideoManager = VideoEngine::CreateSingleton();
+
   if (!SystemManager->InitSingleton())
   {
     Log->Error("Failed to initialize SystemEngine", LOCATION);
     return false;
   }
+
+  if (!VideoManager->InitSingleton())
+  {
+    Log->Error("Failed to initialize VideoEngine", LOCATION);
+    return false;
+  }
+  VideoManager->CreateWindow(1024, 720, "Title Here");
 
   Log->Debug("All singletons initialized", LOCATION);
   return true;
@@ -68,6 +79,7 @@ void DeconstructSingletons()
 {
   Log->Debug("Deconstructing singletons", LOCATION);
 
+  VideoEngine::DestroySingleton();
   SystemEngine::DestroySingleton();
   Logger::DestroySingleton();
 }

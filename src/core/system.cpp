@@ -1,7 +1,6 @@
 #include "../utils/globals.hpp"
 #include "system.hpp"
 
-using namespace rpg_utils;
 // using namespace rpg_mode_manager;
 
 namespace rpg_system
