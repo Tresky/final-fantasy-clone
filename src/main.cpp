@@ -7,6 +7,8 @@
 #include "core/modes.hpp"
   using namespace rpg_modes;
 
+#include "modes/map/map_mode.hpp"
+
 bool InitializeSingletons();
 void DeconstructSingletons();
 
@@ -24,6 +26,8 @@ int main()
     exit(100);
   }
   Log->Debug("Starting engine", LOCATION);
+
+  ModeManager->Push(new rpg_map_mode::MapMode("init_map"), false, false);
 
   sf::RenderWindow *window = VideoManager->GetWindowHandle();
 

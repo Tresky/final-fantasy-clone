@@ -20,6 +20,10 @@ UTIL_OBJ = $(patsubst %, $(ODIR)/%, $(_UTIL_OBJ))
 _ENG_OBJ = system.o video.o modes.o
 ENG_OBJ = $(patsubst %, $(ODIR)/%, $(_ENG_OBJ))
 
+# Mode Objects
+_MOD_OBJ = map_mode.o
+MOD_OBJ = $(patsubst %, $(ODIR)/%, $(_MOD_OBJ))
+
 
 
 #### DEPENDENCY HEADER FILES ####
@@ -31,12 +35,16 @@ UTIL_DEP = $(patsubst %, ./src/utils/%, $(_UTIL_DEP))
 _ENG_DEP = system.hpp video.hpp modes.hpp
 ENG_DEP = $(patsubst %, ./src/core/%, $(_ENG_DEP))
 
+# Mode Headers
+_MOD_DEP = map_mode.hpp
+MOD_DEP = $(patsubst %, ./src/modes/map/%, $(_MOD_DEP))
+
 
 
 
 #### RULES ####
 # Links object files and libraries into executable
-rpg: $(UTIL_OBJ) $(ENG_OBJ) obj/main.o
+rpg: $(UTIL_OBJ) $(ENG_OBJ) $(MOD_OBJ) obj/main.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS) $(INCS)
 
 # Compiles utility code from /src/utils/*
@@ -45,6 +53,10 @@ $(ODIR)/%.o: ./src/utils/%.cpp $(UTIL_DEP)
 
 # Compiles engine from /src/core/*
 $(ODIR)/%.o: ./src/core/%.cpp $(ENG_DEP)
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+# Compiles map mode from /src/modes/map/*
+$(ODIR)/%.o: ./src/modes/map/%.cpp $(MOD_DEP)
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 # Compiles the main.cpp file and places the object
